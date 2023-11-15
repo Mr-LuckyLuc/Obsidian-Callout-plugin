@@ -5,7 +5,7 @@
 	"minAppVersion": "0.15.0",
 	"description": "This is the start of my plugin, for now used to insert callouts with just a couple clicks.",
 	"author": "Lucky",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"authorUrl": "",
+	"fundingUrl": "",
 	"isDesktopOnly": false
 }
