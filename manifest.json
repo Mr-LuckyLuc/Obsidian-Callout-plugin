@@ -1,11 +1,11 @@
 {
 	"id": "test-plugin",
 	"name": "Test Plugin",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "This is a sample plugin for Obsidian. This plugin demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "This is the start of my plugin, for now used to insert callouts with just a couple clicks.",
+	"author": "Lucky",
+	"authorUrl": "",
+	"fundingUrl": "",
 	"isDesktopOnly": false
 }
