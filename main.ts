@@ -56,6 +56,37 @@ function insertNormal(text: string) {
 		}
 	}
 }
+function insertCode(text: string) {
+	const editor = app.workspace.activeEditor?.editor
+	if (editor) {
+		const insert = "> [!" + text + "] ";
+		const selection = editor?.getSelection();
+		if (selection) {
+			const calloutSelection = selection.split('\n').join('\n> ');
+			const replace = insert + "\n> ```\n> " + calloutSelection + "\n>```";
+			editor.replaceSelection(replace);
+			editor.setCursor(editor.offsetToPos(insert.length));
+		}else{
+			editor.replaceRange(
+				insert,
+				editor.getCursor(),
+			);
+			editor.setCursor(editor.offsetToPos(insert.length));
+		}
+	}
+}
+function removeCallout() {
+	const editor = app.workspace.activeEditor?.editor
+	if (editor) {
+		const calloutSelection = editor?.getSelection();
+		if (calloutSelection) {
+			const selection = calloutSelection.replace(/> \[!.*\]-?/i,"").split('\n> ').join('\n');
+			editor.replaceSelection(selection);
+		}else{
+			new Notice("No text selected")
+		}
+	}
+}
 
 export default class ExamplePlugin extends Plugin {
 	statusBarTextElement: HTMLSpanElement;
@@ -71,6 +102,132 @@ export default class ExamplePlugin extends Plugin {
 		this.app.workspace.on('editor-change', (editor) => {
 			const content = editor.getDoc().getValue();
 			this.updateLineCount(content);
+		});
+
+		this.addRibbonIcon("document", "Code Callout Menu", (event) => {
+			removeCallout()
+		});
+
+		this.addRibbonIcon("terminal-square", "Code Callout Menu", (event) => {
+			const menu = new Menu();
+	  
+			menu.addItem((item) =>
+			  item
+				.setTitle("Note")
+				.setIcon("pencil")
+				.onClick(() => {
+					insertCode("note");
+				})
+			);
+
+			menu.addItem((item) =>
+			  item
+				.setTitle("Summary")
+				.setIcon("clipboard-list")
+				.onClick(() => {
+					insertCode("summary");
+				})
+			);
+	  
+			menu.addItem((item) =>
+			  item
+				.setTitle("Info")
+				.setIcon("info")
+				.onClick(() => {
+					insertCode("info");
+				})
+			);
+	  
+			menu.addItem((item) =>
+			  item
+				.setTitle("ToDo")
+				.setIcon("check-circle")
+				.onClick(() => {
+					insertCode("todo");
+				})
+			);
+
+			menu.addItem((item) =>
+			  item
+				.setTitle("Hint")
+				.setIcon("flame")
+				.onClick(() => {
+					insertCode("hint");
+				})
+			);
+	  
+			menu.addItem((item) =>
+			  item
+				.setTitle("Check")
+				.setIcon("check")
+				.onClick(() => {
+					insertCode("check");
+				})
+			);
+
+			menu.addItem((item) =>
+			  item
+				.setTitle("Help")
+				.setIcon("help")//
+				.onClick(() => {
+					insertCode("help");
+				})
+			);
+
+			menu.addItem((item) =>
+			  item
+				.setTitle("Warning")
+				.setIcon("alert-triangle")
+				.onClick(() => {
+					insertCode("warning");
+				})
+			);
+
+			menu.addItem((item) =>
+			  item
+				.setTitle("Failure")
+				.setIcon("x")
+				.onClick(() => {
+					insertCode("failure");
+				})
+			);
+	  
+			menu.addItem((item) =>
+			  item
+				.setTitle("Danger")
+				.setIcon("zap")
+				.onClick(() => {
+					insertCode("danger");
+				})
+			);
+
+			menu.addItem((item) =>
+			  item
+				.setTitle("Bug")
+				.setIcon("bug")//
+				.onClick(() => {
+					insertCode("bug");
+				})
+			);
+	  
+			menu.addItem((item) =>
+			  item
+				.setTitle("Example")
+				.setIcon("list")
+				.onClick(() => {
+					insertCode("example");
+				})
+			);
+
+			menu.addItem((item) =>
+			  item
+				.setTitle("Quote")
+				.setIcon("quote")//
+				.onClick(() => {
+				  insertCode("quote");
+				})
+			);
+			menu.showAtMouseEvent(event);
 		});
 		
 		this.addRibbonIcon("chevron-down-square", "Dropdown Callout Menu", (event) => {
