@@ -67,6 +67,7 @@ function insertCode(text: string) {
 			editor.replaceSelection(replace);
 			editor.setCursor(editor.offsetToPos(insert.length));
 		}else{
+			const codeInsert = insert + "\n> ```\n> \n> ```"
 			editor.replaceRange(
 				insert,
 				editor.getCursor(),
