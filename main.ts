@@ -69,7 +69,7 @@ function insertCode(text: string) {
 		}else{
 			const codeInsert = insert + "\n> ```\n> \n> ```"
 			editor.replaceRange(
-				insert,
+				codeInsert,
 				editor.getCursor(),
 			);
 			editor.setCursor(editor.offsetToPos(insert.length));
