@@ -104,7 +104,7 @@ export default class ExamplePlugin extends Plugin {
 			this.updateLineCount(content);
 		});
 
-		this.addRibbonIcon("document", "Code Callout Menu", (event) => {
+		this.addRibbonIcon("scan", "Delete Selected Callout", () => {
 			removeCallout()
 		});
 
